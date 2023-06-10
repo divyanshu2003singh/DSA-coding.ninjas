@@ -1,0 +1,30 @@
+
+public class Solution { 
+    public static int binarySearch(int[] arr, int x) {
+        //Your code goes here
+        int n=arr.length;
+        int front =0 ;
+        int end=n-1;
+        while(front<=end){
+            int mid = (front+end)/2;
+            if(arr[mid]==x){
+                return mid;
+            }
+            else if(arr[mid]>x){
+                end=mid-1;
+                //break;
+              //  continue ;
+            }
+            else if(arr[mid]<x){
+                front=mid+1;
+               // break;
+            }
+            
+        }
+        
+               return -1;
+           
+        
+}
+        //return Integer.MIN_VALUE;
+    }
