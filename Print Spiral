@@ -1,0 +1,38 @@
+
+public class Solution {
+
+	public static void spiralPrint(int matrix[][]){
+		//Your code goes here
+		int nrows=matrix.length;
+		if(nrows==0){
+			return;
+		}
+		
+		int mcols=matrix[0].length;
+		int i,rowstart=0,colstart=0;
+		int numelements=nrows*mcols,count=0;
+		while(count<numelements){
+			for(i=colstart;count<numelements&&i<mcols;i++){
+				System.out.print(matrix[rowstart][i]+" ");
+				count++;
+							}
+							rowstart++;
+							for(i=rowstart;count<numelements&&i<nrows;i++){
+								System.out.print(matrix[i][mcols-1]+" ");
+								count++;
+							}
+							mcols--;
+							for(i=mcols-1;count<numelements&&i>=colstart;i--){
+                                System.out.print(matrix[nrows-1][i]+" ");
+								count++;
+							}
+							nrows--;
+							for(i=nrows-1;count<numelements&&i>=rowstart;i--){
+								System.out.print(matrix[i][colstart]+" ");
+								count++;
+							}
+							colstart++;
+
+		}
+	}
+}
