@@ -1,0 +1,17 @@
+public class Solution {
+
+	public static String removeConsecutiveDuplicates(String s) {
+		// Write your code here
+       if(s.length()<=1){
+		   return s;
+	   }
+	   char p=s.charAt(0);
+	   char q=s.charAt(1);
+
+	   if(p==q){
+		   return removeConsecutiveDuplicates(s.substring(1));
+	}
+	   return s.charAt(0)+removeConsecutiveDuplicates(s.substring(1));
+	}
+}
+
