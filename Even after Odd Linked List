@@ -1,0 +1,47 @@
+import java.util.LinkedList;
+
+/*
+
+    Following is the Node class already written for the Linked List
+
+    class LinkedListNode<T> {
+        T data;
+        LinkedListNode<T> next;
+    
+        public LinkedListNode(T data) {
+            this.data = data;
+        }
+    }
+
+*/
+
+
+public class Solution {
+
+	public static LinkedListNode<Integer> evenAfterOdd(LinkedListNode<Integer> head) {
+		//Your code goes here
+        if(head== null || head.next==null){
+            return head;
+        }
+        LinkedListNode<Integer> odd=head;
+        LinkedListNode<Integer> even=null;
+
+        while(odd.next!=null&&odd.next.data%2==1){
+            odd=odd.next;
+        }
+        even=odd.next;
+        while(even !=null && even.next!=null){
+            if(even.next.data%2==0){
+                LinkedListNode<Integer> temp=odd.next;
+                odd.next=even.next;
+                even.next=even.next.next;
+                odd.next.next=temp;
+                odd=odd.next;
+            }
+            else{
+                even=even.next;
+            }
+        }
+        return head;
+	}
+}
