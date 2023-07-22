@@ -1,0 +1,58 @@
+import java.util.LinkedList;
+
+/*
+
+    Following is the Node class already written for the Linked List
+
+    class LinkedListNode<T> {
+        T data;
+        LinkedListNode<T> next;
+    
+        public LinkedListNode(T data) {
+            this.data = data;
+        }
+    }
+
+*/
+
+public class Solution {
+
+	public static LinkedListNode<Integer> kReverse(LinkedListNode<Integer> head, int k) {
+		//Your code goes here
+       
+        
+        if(head==null || k==1|| k==0){
+            return head;
+        }
+        LinkedListNode<Integer> dummy = new LinkedListNode<>(0);
+        dummy.next=head;
+        LinkedListNode<Integer> prev=dummy;
+        LinkedListNode<Integer> curr=head;
+        int count =0;
+        while(curr!=null){
+            count ++;
+            if(count % k==0){
+                prev=reverseList(prev,curr.next);
+                curr=prev.next;
+            }
+            else{
+                curr=curr.next;
+            }
+        }
+        return dummy.next;
+	}
+    private static LinkedListNode<Integer> reverseList(LinkedListNode<Integer> prev,LinkedListNode<Integer> next){
+        LinkedListNode<Integer>last=prev.next;
+        LinkedListNode<Integer>curr=last.next;
+        while(curr!=next){
+            LinkedListNode<Integer> temp=curr.next;
+            //last.next=curr.next;
+            curr.next=prev.next;
+            prev.next=curr;
+            last.next=temp;
+            curr=temp;
+        }
+        return last;
+            }
+
+}
