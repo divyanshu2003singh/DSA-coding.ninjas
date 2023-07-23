@@ -1,0 +1,32 @@
+import java.util.Stack;
+import java.util.ArrayList;
+public class Solution {
+
+	public static boolean checkRedundantBrackets(String expression) {
+		//Your code goes here
+		Stack<Character> brackets =new Stack<>();
+		int n=expression.length();
+		boolean isRedundent=false;
+		
+                for(int i=0;i<n;i++){
+					if(expression.charAt(i)=='(' || expression.charAt(i)=='+' || expression.charAt(i)=='-' || expression.charAt(i)=='*' || expression.charAt(i)=='/'){
+						brackets.push(expression.charAt(i));
+					}else if(expression.charAt(i)==')'){
+						 isRedundent=true;
+
+						while(brackets.peek() !='('){
+							if(brackets.peek()=='+' || brackets.peek()=='-' || brackets.peek()=='*' || brackets.peek()=='/'){
+							 isRedundent=false;
+						}
+						brackets.pop();					
+				}
+				brackets.pop();
+				
+				if(isRedundent==true){
+					return true;
+				}
+	}
+}
+      return false;
+}
+}
