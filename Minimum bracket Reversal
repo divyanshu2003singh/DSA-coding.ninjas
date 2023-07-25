@@ -1,0 +1,39 @@
+import java.util.Stack;
+public class Solution {
+
+	public static int countBracketReversals(String input) {
+		//Your code goes here
+		int n= input.length();
+		if(n%2!=0){
+			return -1;
+		}
+		Stack<Character> stack1 =new Stack<>();
+		int count =0;
+		for(int i=0;i<n;i++){
+			char ch =input.charAt(i);
+			if(ch=='{'){
+				stack1.push(ch);
+			}
+			else if(ch=='}'){
+				if(!stack1.isEmpty() && stack1.peek()=='{'){
+					stack1.pop();
+				}else{
+					stack1.push(ch);
+				}
+			}
+		}
+		int unmatchedopenbrackets=0;
+		int unmatchedclosingbrackets=0;
+		while(!stack1.isEmpty() ){
+			char ch=stack1.pop();
+			if(ch=='{'){
+				unmatchedopenbrackets++;
+			}else if(ch=='}'){
+				unmatchedclosingbrackets++;
+			}
+		}
+		//int totalunmatchedbrackets=unmatchedopenbrackets+unmatchedclosingbrackets;
+		int minimum=(unmatchedopenbrackets+1)/2 +(unmatchedclosingbrackets+1)/2;
+		return minimum;
+		}
+	}
