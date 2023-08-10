@@ -1,0 +1,41 @@
+public class Solution {
+
+	public static int kthLargest(int n, int[] input, int k) {
+		// Write your code here
+		return findkthlargest(input,0,n-1,k);
+
+	}
+	private static int findkthlargest(int arr[],int start,int end ,int k){
+		if(start<= end){
+			int pivotindex=partition(arr,start,end);
+			if(pivotindex==k-1){
+				return arr[pivotindex];
+
+			}
+			else if(pivotindex<k-1){
+				return findkthlargest(arr, pivotindex+1, end, k);
+			}
+			else{
+				return findkthlargest(arr, start,pivotindex-1, k);
+			}
+		}
+		return -1;
+	}
+	private static int partition(int arr[],int start,int end){
+		int pivot=arr[end];
+		int i=start-1;
+		for(int j=start;j<=end-1;j++){
+			if(arr[j]>=pivot){
+				i++;
+				swap(arr,i,j);
+			}
+		}
+		swap(arr,i+1,end);
+		return i+1;
+	}
+	private static void swap(int arr[],int i,int j){
+		int temp=arr[i];
+		arr[i]=arr[j];
+		arr[j]=temp;
+	}
+}
