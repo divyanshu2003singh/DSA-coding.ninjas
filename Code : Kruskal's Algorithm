@@ -1,0 +1,73 @@
+import java.util.*;
+
+class Edge implements Comparable<Edge> {
+    int src;
+    int dest;
+    int weight;
+
+    Edge(int src, int dest, int weight) {
+        this.src = src;
+        this.dest = dest;
+        this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(Edge other) {
+        return this.weight - other.weight;
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int V = scanner.nextInt(); // Number of vertices
+        int E = scanner.nextInt(); // Number of edges
+
+        // Create a list to store all the edges
+        List<Edge> edges = new ArrayList<>();
+        for (int i = 0; i < E; i++) {
+            int src = scanner.nextInt();
+            int dest = scanner.nextInt();
+            int weight = scanner.nextInt();
+            edges.add(new Edge(src, dest, weight));
+        }
+
+        // Sort the edges in ascending order of their weights
+        Collections.sort(edges);
+
+        // Create a parent array for Union-Find
+        int[] parent = new int[V];
+        for (int i = 0; i < V; i++) {
+            parent[i] = i; // Initialize each vertex as its own parent
+        }
+
+        // Create a list to store the MST edges
+        List<Edge> mstEdges = new ArrayList<>();
+
+        for (Edge edge : edges) {
+            int srcParent = findParent(edge.src, parent);
+            int destParent = findParent(edge.dest, parent);
+
+            if (srcParent != destParent) {
+                mstEdges.add(edge);
+                union(srcParent, destParent, parent);
+            }
+        }
+
+        // Print the MST edges
+        for (Edge edge : mstEdges) {
+            System.out.println(Math.min(edge.src, edge.dest) + " " + Math.max(edge.src, edge.dest) + " " + edge.weight);
+        }
+    }
+
+    private static int findParent(int vertex, int[] parent) {
+        if (parent[vertex] != vertex) {
+            parent[vertex] = findParent(parent[vertex], parent);
+        }
+        return parent[vertex];
+    }
+
+    private static void union(int srcParent, int destParent, int[] parent) {
+        parent[srcParent] = destParent;
+    }
+}
