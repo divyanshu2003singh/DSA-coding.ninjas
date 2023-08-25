@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+
+public class Solution {
+
+    public static int numConnected(int[][] edges, int n) {
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            adjList.add(new ArrayList<>());
+        }
+
+        for (int[] edge : edges) {
+            int a = edge[0];
+            int b = edge[1];
+            adjList.get(a).add(b);
+            adjList.get(b).add(a);
+        }
+
+        boolean[] visited = new boolean[n];
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                dfs(i, adjList, visited);
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    private static void dfs(int island, ArrayList<ArrayList<Integer>> adjList, boolean[] visited) {
+        visited[island] = true;
+
+        for (int neighbor : adjList.get(island)) {
+            if (!visited[neighbor]) {
+                dfs(neighbor, adjList, visited);
+            }
+        }
+    }
+}
