@@ -1,0 +1,36 @@
+
+public class Solution {
+    public static boolean ratInAMaze(int[][] maze) {
+        int n = maze.length;
+        boolean[][] visited = new boolean[n][n];
+        return hasPath(maze, 0, 0, visited, n);
+    }
+
+    public static boolean hasPath(int[][] maze, int row, int col, boolean[][] visited, int n) {
+        if (row < 0 || col < 0 || row >= n || col >= n || maze[row][col] == 0 || visited[row][col]) {
+            return false;
+        }
+
+        visited[row][col] = true;
+
+        if (row == n - 1 && col == n - 1) {
+            return true;
+        }
+        
+        // Explore all possible directions
+        if (hasPath(maze, row - 1, col, visited, n)) { // Up
+            return true;
+        }
+        if (hasPath(maze, row + 1, col, visited, n)) { // Down
+            return true;
+        }
+        if (hasPath(maze, row, col - 1, visited, n)) { // Left
+            return true;
+        }
+        if (hasPath(maze, row, col + 1, visited, n)) { // Right
+            return true;
+        }
+        
+        return false;
+    }
+}
