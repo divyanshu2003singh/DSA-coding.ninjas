@@ -1,0 +1,41 @@
+/*
+	Note:
+	To get all the test cases accepted, make recursive calls in following order: Top, Down, Left, Right.
+	This means that if the current cell is (x, y), then order of calls should be: top cell (x-1, y), 
+	down cell (x+1, y), left cell (x, y-1) and right cell (x, y+1).
+*/  
+public class Solution {
+    public static void ratInAMaze(int maze[][], int n) {
+        int[][] path = new int[n][n];
+        findPaths(maze, 0, 0, path, n);
+    }
+
+    public static void findPaths(int[][] maze, int row, int col, int[][] path, int n) {
+        if (row < 0 || col < 0 || row >= n || col >= n || maze[row][col] == 0 || path[row][col] == 1) {
+            return;
+        }
+        
+        path[row][col] = 1;
+
+        if (row == n - 1 && col == n - 1) {
+            printPath(path, n);
+        }
+        
+        findPaths(maze, row - 1, col, path, n); // Top
+        findPaths(maze, row + 1, col, path, n); // Down
+        findPaths(maze, row, col - 1, path, n); // Left
+        findPaths(maze, row, col + 1, path, n); // Right
+
+        path[row][col] = 0;
+    }
+
+    public static void printPath(int[][] path, int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(path[i][j] + " ");
+            }
+        }
+        System.out.println();
+    }
+}
+ 
